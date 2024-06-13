@@ -75,3 +75,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+.or {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  width: 100%;
+}
+
+.or::before,
+.or::after {
+  content: "";
+  height: 1px;
+  background-color: black;
+  display: block;
+}
