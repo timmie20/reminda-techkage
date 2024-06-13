@@ -1,8 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 const Signup = () => {
+  const [formType, setFormType] = useState(true);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <>
       <div className="flex h-screen items-center justify-center bg-zinc-50 px-2 font-Poppins md:px-0">
@@ -15,6 +21,7 @@ const Signup = () => {
           </p>
 
           <div className="mt-7 flex flex-col gap-3">
+            {formType && <Input type="text" placeholder="Name" />}
             <Input type="email" placeholder="Email" />
             <Input type="text" placeholder="Password" />
           </div>
@@ -23,12 +30,17 @@ const Signup = () => {
             className="mt-3 w-full bg-green_light md:text-lg"
             type="submit"
           >
-            Sign Up
+            {formType ? "Sign up" : "Sign in"}
           </Button>
 
           <p className="text-sm">
-            Already have an account?{" "}
-            <span className="cursor-pointer text-green_dark">Sign In</span>
+            {formType ? "Already" : `Don't`} have an account? {""}
+            <span
+              className="cursor-pointer text-green_dark"
+              onClick={() => setFormType(!formType)}
+            >
+              {formType ? "sign in" : "sign up"}
+            </span>
           </p>
 
           <div className="flex items-center justify-center">
