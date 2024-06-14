@@ -60,7 +60,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signInWithGoogle, signIn, createUser, addUserToFs }}
+      value={{ signInWithGoogle, signIn, createUser, addUserToFs, user }}
     >
       {children}
     </AuthContext.Provider>

@@ -28,7 +28,7 @@ const Signup = () => {
 
   return (
     <>
-      <div className="flex h-screen items-center justify-center bg-gradient-to-br from-zinc-50 from-40% to-green_light px-2 font-Poppins md:px-0">
+      <div className="fixed inset-0 z-50 grid cursor-pointer place-items-center overflow-y-scroll bg-slate-900/20 p-8 backdrop-blur">
         <form
           className="flex h-fit max-w-[430px] flex-col gap-3 rounded-lg bg-white px-6 py-8 text-center drop-shadow-lg"
           onSubmit={handleSubmit}
