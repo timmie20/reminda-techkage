@@ -1,18 +1,38 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { AuthContext } from "@/context/AuthContext";
+import { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 const Signup = () => {
   const [formType, setFormType] = useState(true);
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { signInWithGoogle, signIn, createUser, addUserToFs } =
+    useContext(AuthContext);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      if (formType) {
+        await createUser(email, password);
+        await addUserToFs(password);
+      } else {
+        await signIn(email, password);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <>
-      <div className="flex h-screen items-center justify-center bg-zinc-50 px-2 font-Poppins md:px-0">
-        <form className="flex h-fit max-w-[430px] flex-col gap-3 rounded-lg bg-white px-6 py-8 text-center drop-shadow-lg">
+      <div className="flex h-screen items-center justify-center bg-gradient-to-br from-zinc-50 from-40% to-green_light px-2 font-Poppins md:px-0">
+        <form
+          className="flex h-fit max-w-[430px] flex-col gap-3 rounded-lg bg-white px-6 py-8 text-center drop-shadow-lg"
+          onSubmit={handleSubmit}
+        >
           <h3 className="font-Poppins text-2xl font-semibold text-slate-600">
             Sign Up or Sign In
           </h3>
@@ -21,9 +41,18 @@ const Signup = () => {
           </p>
 
           <div className="mt-7 flex flex-col gap-3">
-            {formType && <Input type="text" placeholder="Name" />}
-            <Input type="email" placeholder="Email" />
-            <Input type="text" placeholder="Password" />
+            <Input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="text"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
 
           <Button
@@ -47,7 +76,10 @@ const Signup = () => {
             <span className="or">or</span>
           </div>
 
-          <div className="inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-md border-[1px] border-slate-500 px-4 py-2">
+          <div
+            className="inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-md border-[1px] border-slate-500 px-4 py-2"
+            onClick={signInWithGoogle}
+          >
             <FcGoogle size={26} />
             <p className="md:text-md text-sm">continue with google</p>
           </div>
