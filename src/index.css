@@ -90,3 +90,7 @@
   background-color: black;
   display: block;
 }
+
+.active {
+  @apply font-bold text-green_light;
+}
