@@ -6,18 +6,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const DosageTimeInterval = ({ id }) => {
+const DosageTimeInterval = (props) => {
+  const { id, name, selectValue, handleOnChange, ...rest } = props;
   return (
-    <Select>
-      <SelectTrigger className="w-full" id={id}>
+    <Select
+      name={name}
+      id={id}
+      value={selectValue}
+      onValueChange={handleOnChange}
+      {...rest}
+    >
+      <SelectTrigger className="w-full">
         <SelectValue placeholder="Select" />
       </SelectTrigger>
       <SelectContent>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((value) => (
-          <SelectItem value={value} key={value}>
-            {value === 1 ? `${value}hour` : `${value}hours`}
-          </SelectItem>
-        ))}
+        {["1", " 2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"].map(
+          (value) => (
+            <SelectItem value={value} key={value}>
+              {value === "1" ? `${value} hour` : `${value} hours`}
+            </SelectItem>
+          ),
+        )}
       </SelectContent>
     </Select>
   );
