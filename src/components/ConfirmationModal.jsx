@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FiAlertCircle } from "react-icons/fi";
 
-const ConfirmationModal = ({ confirmed, setConfirmed }) => {
+const ConfirmationModal = ({ confirmed, setConfirmed,handleSubmit }) => {
   return (
     <AnimatePresence>
       {confirmed && (
@@ -36,7 +36,7 @@ const ConfirmationModal = ({ confirmed, setConfirmed }) => {
                   Nah, go back
                 </button>
                 <button
-                  onClick={() => setConfirmed(false)}
+                  onClick={handleSubmit}
                   className="w-full rounded bg-white py-2 font-semibold text-green_light transition-opacity hover:opacity-90"
                 >
                   Understood!

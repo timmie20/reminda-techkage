@@ -59,7 +59,6 @@ const MedicalHistory = () => {
     }
     // TODO: Else Handle invalid form submission FOR FEEDBACK
   };
-  console.log(data);
   return (
     <>
       <form className="w-full space-y-4">
