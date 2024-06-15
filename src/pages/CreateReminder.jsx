@@ -2,19 +2,24 @@ import AboutUserForm from "@/components/AboutUserForm";
 import DosageRegistration from "@/components/DosageRegistration";
 import MedicalHistory from "@/components/MedicalHistory";
 import SideContent from "@/components/SideContent";
+import Signup from "@/components/Signup";
 import { AppContext } from "@/context/AppContext";
 import { KYCContextProvider } from "@/context/KYC";
 import { useContext } from "react";
 
 const CreateReminder = () => {
   const { currentStep } = useContext(AppContext);
+  const { user } = useContext(AuthContext);
+
   const mapping = {
     bio: <AboutUserForm />,
     medicals: <MedicalHistory />,
     dosage: <DosageRegistration />,
   };
+
   return (
     <>
+      {!user && <Signup />}
       <div className="flex h-screen">
         <SideContent />
         <main className="mx-auto flex w-full max-w-[50%] flex-col justify-center gap-6 p-8">
