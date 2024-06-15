@@ -1,28 +1,8 @@
-import React, { useState } from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 
-function AgeCalculator() {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [age, setAge] = useState(0);
-
-  const handleChange = (date) => {
-    setSelectedDate(date);
-    if (date) {
-      const today = new Date();
-      const birthYear = date.getFullYear();
-      const ageInYears = today.getFullYear() - birthYear;
-      setAge(
-        ageInYears -
-          (today.getMonth() === date.getMonth() &&
-          today.getDate() < date.getDate()
-            ? 1
-            : 0),
-      );
-    } else {
-      setAge(0);
-    }
-  };
+function AgeCalculator(props) {
+  const { name,value, handleChange, ...rest } = props;
 
   return (
     <div>
@@ -30,7 +10,11 @@ function AgeCalculator() {
       <Input
         id="date-picker"
         type="date"
-        onChange={(event) => handleChange(new Date(event.target.value))}
+        value={value}
+        onChange={handleChange}
+        max={new Date().toISOString().split("T")[0]}
+        name={name}
+        {...rest}
       />
     </div>
   );
