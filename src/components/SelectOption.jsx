@@ -6,15 +6,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const SelectOption = ({ id }) => {
+const SelectOption = (props) => {
+  const { id, name, selectValue, handleOnChange, ...rest } = props;
   const options = [
     { lable: "Yes", value: "yes" },
     { lable: "No", value: "no" },
     { lable: "I'd rather not say", value: "null" },
   ];
   return (
-    <Select>
-      <SelectTrigger className="w-full" id={id}>
+    <Select
+      name={name}
+      id={id}
+      value={selectValue}
+      onValueChange={handleOnChange}
+      {...rest}
+    >
+      <SelectTrigger className="w-full">
         <SelectValue placeholder="Select" />
       </SelectTrigger>
       <SelectContent>

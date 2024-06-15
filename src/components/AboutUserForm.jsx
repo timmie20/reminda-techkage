@@ -39,12 +39,13 @@ const AboutUserForm = () => {
     }
   };
   const validateForm = useCallback(() => {
+    const { firstname, lastname, age, mobile, gender } = formData;
     return (
-      formData.firstname !== "" &&
-      formData.lastname !== "" &&
-      formData.age !== "" &&
-      formData.mobile !== "" &&
-      formData.gender !== ""
+      firstname !== "" &&
+      lastname !== "" &&
+      age !== "" &&
+      mobile !== "" &&
+      gender !== ""
     );
   }, [formData]);
 

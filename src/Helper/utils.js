@@ -1,5 +1,7 @@
 export const getAgeValue = (date) => {
+ 
   let age = 0;
+  
 
   if (date) {
     const today = new Date();
