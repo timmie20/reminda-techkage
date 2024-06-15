@@ -5,6 +5,7 @@ import SideContent from "@/components/SideContent";
 import Signup from "@/components/Signup";
 import { AppContext } from "@/context/AppContext";
 import { KYCContextProvider } from "@/context/KYC";
+import { AuthContext } from "@/context/AuthContext";
 import { useContext } from "react";
 
 const CreateReminder = () => {
