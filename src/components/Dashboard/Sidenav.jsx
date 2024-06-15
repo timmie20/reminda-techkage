@@ -22,12 +22,14 @@ const Sidenav = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const navItems = [
-    { name: "Dashboard", icon: <MdOutlineSpaceDashboard /> },
+    { name: "Overview", icon: <GrOverview /> },
     { name: "Profile", icon: <CiUser /> },
     { name: "Medication", icon: <GiMedicines /> },
-    { name: "Timer", icon: <MdOutlineTimer /> },
-    { name: "Overview", icon: <GrOverview /> },
-    { name: "Energy", icon: <SlEnergy /> },
+    { name: "Create", icon: <SlEnergy /> },
+    // { name: "Timer", icon: <MdOutlineTimer /> },
+    // { name: "Overview", icon: <GrOverview /> },
+    { name: "Shop", icon: <SlEnergy /> },
+    { name: "Activity", icon: <SlEnergy /> },
     { name: "Settings", icon: <IoSettingsOutline /> },
   ];
 

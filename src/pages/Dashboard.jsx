@@ -44,7 +44,7 @@ const Dashboard = () => {
   return (
     <div className="lgl:p-[2rem] mdl:p-[2rem] sml:p-[2rem] flex min-h-[1000px] w-full flex-col gap-4 overflow-hidden p-[1rem] md:p-[2rem] lg:p-[2rem] xl:p-[2rem]">
       <div className="flex items-center justify-between py-2">
-        <h1 className="text-lg font-bold">Dashboard</h1>
+        <h1 className="text-lg font-bold">Overview</h1>
         <div className="right-0 float-right ml-auto flex">
           <Link to="/dashboard/profile" className="text-gray-200 hover:text-gray-400">
             <FaRegUser size={20} />

@@ -4,7 +4,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import AppLayout from "./layout/AppLayout";
 import CreateReminder from "./pages/CreateReminder";
 import Home from "./pages/Home";
-import Dashboard from "./Pages/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import DashboardLayout from "./layout/DashboardLayout";
 import Profile from "./components/Dashboard/Profile";
 
