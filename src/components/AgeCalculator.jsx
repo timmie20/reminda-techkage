@@ -1,9 +1,7 @@
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 
-function AgeCalculator(props) {
-  const { name,value, handleChange, ...rest } = props;
-
+function AgeCalculator({ name, value, handleChange, ...rest }) {
   return (
     <div>
       <Label htmlFor="date-picker">Select your date of birth</Label>

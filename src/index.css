@@ -96,5 +96,5 @@
 }
 
 .primary_btn {
-  @apply w-full rounded-md bg-green_dark px-7 py-2 text-center font-bold text-white md:block;
+  @apply w-full rounded-md bg-green_dark px-7 py-2 text-center font-bold text-white disabled:pointer-events-none disabled:opacity-50 md:block;
 }

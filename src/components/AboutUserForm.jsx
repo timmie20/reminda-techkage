@@ -1,16 +1,17 @@
 import { AppContext } from "@/context/AppContext";
-import { useCallback, useContext, useMemo } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import AgeCalculator from "./AgeCalculator";
 import GenderSelect from "./GenderSelect";
-import { useState } from "react";
 import { getAgeValue } from "@/Helper/utils";
 import { KYCContext } from "@/context/KYC";
 
 const AboutUserForm = () => {
   const { setCurrentStep, stepData } = useContext(AppContext);
   const { data, setData } = useContext(KYCContext);
+  const [age, setAge] = useState("");
+
   const [formData, setFormData] = useState({
     firstname: data.firstname || "",
     lastname: data.lastname || "",
@@ -18,7 +19,7 @@ const AboutUserForm = () => {
     mobile: data.mobile || "",
     gender: data.gender || "",
   });
-  const [age, setAge] = useState("");
+
   const getAgeValueMemoized = useMemo(() => {
     return (dateOfBirth) => {
       //  getAgeValue returns an object with `age & date` properties
@@ -29,6 +30,7 @@ const AboutUserForm = () => {
   const handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+
     if (event.target.name === "age") {
       const dateOfBirth = new Date(value);
       const { age } = getAgeValueMemoized(dateOfBirth);
@@ -38,6 +40,7 @@ const AboutUserForm = () => {
       setFormData({ ...formData, [name]: value });
     }
   };
+
   const validateForm = useCallback(() => {
     const { firstname, lastname, age, mobile, gender } = formData;
     return (
@@ -53,6 +56,7 @@ const AboutUserForm = () => {
   const isButtonDisabled = useMemo(() => {
     return !validateForm();
   }, [validateForm]);
+
   const handleNextAction = () => {
     const isFormValid = validateForm();
 

@@ -6,8 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const SelectOption = (props) => {
-  const { id, name, selectValue, handleOnChange, ...rest } = props;
+const SelectOption = ({ id, name, selectValue, handleOnChange, ...rest }) => {
   const options = [
     { lable: "Yes", value: "yes" },
     { lable: "No", value: "no" },
