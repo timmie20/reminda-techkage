@@ -3,6 +3,7 @@ import DosageRegistration from "@/components/DosageRegistration";
 import MedicalHistory from "@/components/MedicalHistory";
 import SideContent from "@/components/SideContent";
 import { AppContext } from "@/context/AppContext";
+import { KYCContextProvider } from "@/context/KYC";
 import { useContext } from "react";
 
 const CreateReminder = () => {
@@ -20,7 +21,7 @@ const CreateReminder = () => {
           <h1 className="text-3xl font-bold text-green_light">
             {currentStep.about}
           </h1>
-          {mapping[currentStep.page]}
+          <KYCContextProvider>{mapping[currentStep.page]}</KYCContextProvider>
         </main>
       </div>
     </>

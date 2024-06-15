@@ -1,4 +1,4 @@
-import { getData } from "/data";
+import { getData } from "@/Helper/data";
 import { createContext, useState } from "react";
 
 export const AppContext = createContext(null);
