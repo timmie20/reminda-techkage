@@ -1,5 +1,5 @@
 import { AppContext } from "@/context/AppContext";
-import { useContext, useMemo } from "react";
+import { useCallback, useContext, useMemo } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import AgeCalculator from "./AgeCalculator";
@@ -38,12 +38,30 @@ const AboutUserForm = () => {
       setFormData({ ...formData, [name]: value });
     }
   };
+  const validateForm = useCallback(() => {
+    return (
+      formData.firstname !== "" &&
+      formData.lastname !== "" &&
+      formData.age !== "" &&
+      formData.mobile !== "" &&
+      formData.gender !== ""
+    );
+  }, [formData]);
 
+  // Enable or disable button based on form validation
+  const isButtonDisabled = useMemo(() => {
+    return !validateForm();
+  }, [validateForm]);
   const handleNextAction = () => {
-    setData(formData);
-    setCurrentStep(stepData[1]);
+    const isFormValid = validateForm();
+
+    if (isFormValid) {
+      setData(formData);
+      setCurrentStep(stepData[1]);
+    }
+    // TODO: Else Handle invalid form submission FOR FEEDBACK
   };
- 
+
   return (
     <>
       <form className="flex w-full flex-col gap-10">
@@ -99,7 +117,7 @@ const AboutUserForm = () => {
           className="primary_btn"
           type="button"
           onClick={handleNextAction}
-      
+          disabled={isButtonDisabled}
         >
           continue
         </button>
