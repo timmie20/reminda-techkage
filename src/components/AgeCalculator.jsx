@@ -31,6 +31,7 @@ function AgeCalculator() {
         id="date-picker"
         type="date"
         onChange={(event) => handleChange(new Date(event.target.value))}
+        max={new Date().toISOString().split("T")[0]}
       />
     </div>
   );
