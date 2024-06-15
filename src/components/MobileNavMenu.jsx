@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 const MobileNavMenu = ({ pathname, setIsOpen }) => {
   return (
     <>
-      <div className="fixed right-0 top-5 z-20 flex h-screen w-[50%] max-w-[300px] flex-col items-end gap-10 bg-white px-2 lg:hidden">
+      <div className="fixed right-0 top-5 z-20 flex h-screen w-[50%] max-w-[300px] flex-col items-end gap-10 bg-white px-2 md:hidden">
         <IoMdClose size={30} onClick={() => setIsOpen(false)} />
         <div className="flex flex-col gap-4 pr-5 text-right font-Inter text-sm font-medium text-gray-600">
           <Link to="/" className={pathname === "/" ? "active" : ""}>
             Home
           </Link>
           <Link to="/about" className={pathname === "/about" ? "active" : ""}>
-            About hREMIND
+            About reminda
           </Link>
           <Link
             to="/howitworks"

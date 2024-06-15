@@ -52,7 +52,7 @@ const Navbar = () => {
             <IoMdMenu
               size={30}
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden"
+              className="md:hidden"
             />
           )}
         </nav>

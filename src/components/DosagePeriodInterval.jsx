@@ -13,8 +13,8 @@ const DosagePeriodInterval = ({ id }) => {
         <SelectValue placeholder="Select" />
       </SelectTrigger>
       <SelectContent>
-        {["daily", "weekly", "montly"].map((value) => (
-          <SelectItem value={value}>
+        {["daily", "weekly", "montly"].map((value, index) => (
+          <SelectItem value={value} key={index}>
             {value.toLocaleUpperCase()}
           </SelectItem>
         ))}

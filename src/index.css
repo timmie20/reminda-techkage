@@ -94,3 +94,7 @@
 .active {
   @apply font-bold text-green_light;
 }
+
+.primary_btn {
+  @apply w-full rounded-md bg-green_dark px-7 py-2 text-center font-bold text-white md:block;
+}
