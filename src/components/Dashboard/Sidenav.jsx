@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { CiUser } from "react-icons/ci";
-import { MdOutlineTimer } from "react-icons/md";
 import { GrOverview } from "react-icons/gr";
 import { SlEnergy } from "react-icons/sl";
-// import { SlCalender } from "react-icons/sl";
 import { IoSettingsOutline } from "react-icons/io5";
 import { GiMedicines } from "react-icons/gi";
 import { FiLogOut } from "react-icons/fi";
+import { IoCreateOutline } from "react-icons/io5";
+import { AiOutlineShopping } from "react-icons/ai";
+import { LuActivity } from "react-icons/lu";
+
+
+
+
 import {
   Dialog,
   DialogContent,
@@ -25,11 +29,9 @@ const Sidenav = () => {
     { name: "Overview", icon: <GrOverview /> },
     { name: "Profile", icon: <CiUser /> },
     { name: "Medication", icon: <GiMedicines /> },
-    { name: "Create", icon: <SlEnergy /> },
-    // { name: "Timer", icon: <MdOutlineTimer /> },
-    // { name: "Overview", icon: <GrOverview /> },
-    { name: "Shop", icon: <SlEnergy /> },
-    { name: "Activity", icon: <SlEnergy /> },
+    { name: "Create", icon: <IoCreateOutline /> },
+    { name: "Shop", icon: <AiOutlineShopping /> },
+    { name: "Activity", icon: <LuActivity /> },
     { name: "Settings", icon: <IoSettingsOutline /> },
   ];
 
