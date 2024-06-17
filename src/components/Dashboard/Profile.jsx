@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import { FaUser } from "react-icons/fa6";
 import { FiEdit2 } from "react-icons/fi";
-// import {
-//     Dialog,
-//     DialogContent,
-//     DialogDescription,
-//     DialogHeader,
-//     DialogTitle,
-//     DialogTrigger,
-//   } from "@/components/ui/dialog";
+
 
 const Profile = () => {
   const [user, setUser] = useState({
@@ -28,18 +21,7 @@ const Profile = () => {
 
   return (
     <div className="lgl:p-[2rem] mdl:p-[2rem] sml:p-[2rem] flex min-h-[1600px] w-full flex-col gap-4 overflow-hidden p-[1rem] md:p-[2rem] lg:p-[2rem] xl:p-[2rem]">
-      {/* <Dialog>
-  <DialogTrigger>Open</DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Are you absolutely sure?</DialogTitle>
-      <DialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </DialogDescription>
-    </DialogHeader>
-  </DialogContent>
-</Dialog> */}
+      
       <div className="flex items-center justify-between py-2">
         <h1 className="text-lg font-bold">Profile</h1>
         <div className="right-0 float-right ml-auto flex">
@@ -51,7 +33,6 @@ const Profile = () => {
         <div className="color-white flex h-[17rem] flex-col bg-gray-800 p-4 text-lg font-bold md:w-[25%]">
           <div className="relative mb-6  overflow-hidden rounded-lg">
             <FaUser 
-            // size={50} 
             className="md:w-40 w-60 h-full" />
           </div>
           {`Hello ${user.username}` || "Hi John Doe"}
