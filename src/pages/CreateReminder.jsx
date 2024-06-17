@@ -1,5 +1,4 @@
 import AboutUserForm from "@/components/AboutUserForm";
-import DosageRegistration from "@/components/DosageRegistration";
 import MedicalHistory from "@/components/MedicalHistory";
 import SideContent from "@/components/SideContent";
 import Signup from "@/components/Signup";
@@ -15,7 +14,6 @@ const CreateReminder = () => {
   const mapping = {
     bio: <AboutUserForm />,
     medicals: <MedicalHistory />,
-    dosage: <DosageRegistration />,
   };
 
   return (

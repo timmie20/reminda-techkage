@@ -2,12 +2,18 @@ import { AppContext } from "@/context/AppContext";
 import { useCallback, useContext, useMemo, useState } from "react";
 import { Label } from "./ui/label";
 import SelectOption from "./SelectOption";
-import { Textarea } from "./ui/textarea";
 import { KYCContext } from "@/context/KYC";
+import { Input } from "./ui/input";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "@/config/firebase";
+import { AuthContext } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const MedicalHistory = () => {
+  const navigate = useNavigate();
   const { setCurrentStep, stepData } = useContext(AppContext);
   const { data, setData } = useContext(KYCContext);
+  const { user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     aliment: data.aliment || "",
     alimentType: data.alimentType || "",
@@ -47,7 +53,7 @@ const MedicalHistory = () => {
     return !validateForm();
   }, [validateForm]);
 
-  const handleNextAction = () => {
+  const handleSubmit = async () => {
     const isFormValid = validateForm();
 
     if (isFormValid) {
@@ -55,9 +61,22 @@ const MedicalHistory = () => {
         ...prevObj,
         ...formData,
       }));
-      setCurrentStep(stepData[2]);
     }
-    // TODO: Else Handle invalid form submission FOR FEEDBACK
+console.log('====================================');
+console.log(data);
+console.log('====================================');
+    const valRef = collection(db, "users");
+
+    const req = {
+      ...(user.uid && { userId: user.uid }),
+      ...(data && data),
+      ...(formData && formData),
+    };
+
+    // save fields to Firestore Database
+    await addDoc(valRef, { req });
+    // TODD: IS FEEDBACK NEEDED HERE BEFORE RE-DIRECTING TO DASHBOARD?
+    navigate("/dashboard");
   };
   return (
     <>
@@ -75,44 +94,43 @@ const MedicalHistory = () => {
         {formData["aliment"] === "yes" && (
           <div>
             <Label htmlFor="ailment-nature">If yes , State it</Label>
-            <Textarea
+            <Input
               id="ailment-nature"
               name="alimentType"
               value={formData["alimentType"]}
               onChange={(event) =>
                 handleOnChange(event.target.value, "alimentType")
               }
+              placeholder="For example : Headache, Malaria, Food Poisoning"
             />
           </div>
         )}
 
-        <div className="flex gap-4">
-          <div className="w-full">
-            <Label htmlFor="is-hospitalized">
-              Are you currently hospitalized?
-            </Label>
-            <SelectOption
-              id="is-hospitalized"
-              name="currentlyHospitalized"
-              selectValue={formData["currentlyHospitalized"]}
-              handleOnChange={(val) =>
-                handleOnChange(val, "currentlyHospitalized")
-              }
-            />
-          </div>
-          <div className="w-full">
-            <Label htmlFor="been-hospitalized">
-              Have you been previously hospitalized?
-            </Label>
-            <SelectOption
-              id="been-hospitalized"
-              name="previouslyHospitalized"
-              selectValue={formData["previouslyHospitalized"]}
-              handleOnChange={(val) =>
-                handleOnChange(val, "previouslyHospitalized")
-              }
-            />
-          </div>
+        <div className="w-full">
+          <Label htmlFor="is-hospitalized">
+            Are you currently hospitalized?
+          </Label>
+          <SelectOption
+            id="is-hospitalized"
+            name="currentlyHospitalized"
+            selectValue={formData["currentlyHospitalized"]}
+            handleOnChange={(val) =>
+              handleOnChange(val, "currentlyHospitalized")
+            }
+          />
+        </div>
+        <div className="w-full">
+          <Label htmlFor="been-hospitalized">
+            Have you been previously hospitalized?
+          </Label>
+          <SelectOption
+            id="been-hospitalized"
+            name="previouslyHospitalized"
+            selectValue={formData["previouslyHospitalized"]}
+            handleOnChange={(val) =>
+              handleOnChange(val, "previouslyHospitalized")
+            }
+          />
         </div>
 
         <div className="flex w-full gap-3">
@@ -126,10 +144,10 @@ const MedicalHistory = () => {
           <button
             className="primary_btn"
             type="button"
-            onClick={handleNextAction}
+            onClick={handleSubmit}
             disabled={isButtonDisabled}
           >
-            continue
+            Submit
           </button>
         </div>
       </form>
