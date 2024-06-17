@@ -19,9 +19,9 @@ const App = () => {
             </Route>
             <Route path="/create" element={<CreateReminder />} />
             <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<Dashboard />} />
+              <Route index element={<Dashboard />} />
               <Route path="/dashboard/profile" element={<Profile />} />
-           </Route>
+            </Route>
           </Routes>
         </AppContextProvider>
       </AuthContextProvider>
