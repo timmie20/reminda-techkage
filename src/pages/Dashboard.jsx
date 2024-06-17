@@ -42,7 +42,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="lgl:p-[2rem] mdl:p-[2rem] sml:p-[2rem] flex min-h-[1000px] w-full flex-col gap-4 overflow-hidden p-[1rem] md:p-[2rem] lg:p-[2rem] xl:p-[2rem]">
+    <div className="lgl:p-[2rem] mdl:p-[2rem] sml:p-[2rem] flex md:min-h-[1000px] w-full flex-col gap-y-4 overflow-hidden p-[0.2rem] md:p-[2rem] lg:p-[2rem] xl:p-[2rem]">
       <div className="flex items-center justify-between py-2">
         <h1 className="text-lg font-bold">Overview</h1>
         <div className="right-0 float-right ml-auto flex">
@@ -52,15 +52,15 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="mb-4 mt-4 flex flex-row items-center justify-between rounded-xl  bg-gray-800 p-8 text-center">
-        <h1 className="items-center justify-center text-center font-Poppins  text-[32px] font-medium leading-snug text-gray-400 md:text-left md:text-[45px]">
+      <div className="mb-4 mt-4 flex flex-row items-center justify-between rounded-xl  bg-gray-800 sm:p-8 p-2 text-center">
+        <h1 className="items-center justify-center text-center font-Poppins  sm:text-[30px] text-[18px] font-medium leading-snug text-gray-400 md:text-left md:text-[45px]">
           Active TIMER -<span> 00:00</span>
         </h1>
-        <IoTimeSharp size={50} className="text-gray-400 " />
+        <IoTimeSharp size={40} className="text-gray-400 " />
       </div>
 
       <div className="md:mt-6 mt-2 flex flex-col gap-4 ">
-        <div className="flex items-center justify-between py-5">
+        <div className="flex items-center justify-between sm:py-5 py-2">
           <h1 className="md:text-base text-sm ">Your medications</h1>
           <Link to="/dashboard/medication">
             <div className="flex flex-row justify-center ">
@@ -72,7 +72,7 @@ const Dashboard = () => {
           </Link>
         </div>
 
-        <div className="lgl:gap-4 mdl:gap-4 sml:gap-3 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-2 lg:gap-4  xl:gap-4 ">
+        <div className="lgl:gap-4 mdl:gap-4 cursor-pointer sml:gap-3 grid grid-cols-1 sm:grid-cols-2 gap-2 md:grid-cols-3 md:gap-2 lg:gap-4  xl:gap-4 ">
           {medicList.map((item) => (
             <div
               key={item.id}
@@ -88,7 +88,7 @@ const Dashboard = () => {
                 <div>{item.time}</div>
               </div>
 
-              <div className="lgl:text-3xl mdl:text-2xl sml:text-xl text-xl text-gray-500 md:text-2xl lg:text-3xl xl:text-3xl">
+              <div className="lgl:text-3xl mdl:text-2xl sml:text-xl text-xl hover:text-gray-300 text-gray-500 md:text-2xl lg:text-3xl xl:text-3xl">
                 {item.icon}
               </div>
             </div>
@@ -96,7 +96,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="my-8 flex flex-row">
+      <div className="md:my-8 my-4 flex flex-row">
         <BarChart
           series={[
             { data: [3, 4, 1, 6, 5], stack: "A", label: "Series A1" },
