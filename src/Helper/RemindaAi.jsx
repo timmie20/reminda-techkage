@@ -27,7 +27,7 @@ export async function generate(ailmentType) {
     {
       text: "Aliment copy: seems you're dealing with throbbing headaches or migraines, they could be caused by factors like dehydration, stress, and changes in sleep patterns. Skipping meals or having too much caffeine may also trigger them. For quick relief, try staying hydrated, taking a pain reliever, resting in a dark room, or applying a cool compress. I hope you feel better soon.",
     },
-    { text: "Ailment: Food poisioning" },
+    { text: "Ailment: Food poisoning" },
     {
       text: "Aliment copy: If you have food poisoning, it's important to stay hydrated by drinking clear fluids like water or broth. Avoid solid foods until your symptoms improve. Rest is also crucial, and over-the-counter medications can help with nausea and diarrhea. If your symptoms get worse, please seek medical attention immediately.",
     },
