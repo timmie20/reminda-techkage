@@ -62,9 +62,9 @@ const MedicalHistory = () => {
         ...formData,
       }));
     }
-console.log('====================================');
-console.log(data);
-console.log('====================================');
+    console.log("====================================");
+    console.log(data);
+    console.log("====================================");
     const valRef = collection(db, "users");
 
     const req = {
@@ -80,8 +80,8 @@ console.log('====================================');
   };
   return (
     <>
-      <form className="w-full space-y-4">
-        <div>
+      <form className="w-full">
+        <div className="space-y-2">
           <Label htmlFor="has-ailment">Any current Disorder or Ailment?</Label>
           <SelectOption
             id="has-ailment"
@@ -92,7 +92,7 @@ console.log('====================================');
         </div>
 
         {formData["aliment"] === "yes" && (
-          <div>
+          <div className="mt-3 space-y-2">
             <Label htmlFor="ailment-nature">If yes , State it</Label>
             <Input
               id="ailment-nature"
@@ -106,7 +106,7 @@ console.log('====================================');
           </div>
         )}
 
-        <div className="w-full">
+        <div className="mt-3 space-y-2">
           <Label htmlFor="is-hospitalized">
             Are you currently hospitalized?
           </Label>
@@ -119,7 +119,7 @@ console.log('====================================');
             }
           />
         </div>
-        <div className="w-full">
+        <div className="mt-3 space-y-2">
           <Label htmlFor="been-hospitalized">
             Have you been previously hospitalized?
           </Label>
@@ -133,11 +133,11 @@ console.log('====================================');
           />
         </div>
 
-        <div className="flex w-full gap-3">
+        <div className="mt-7 flex w-full gap-3">
           <button
             className="primary_btn"
             type="button"
-            onClick={() => setCurrentStep(stepData[0])}
+            onClick={() => setCurrentStep(stepData[1])}
           >
             go back
           </button>
