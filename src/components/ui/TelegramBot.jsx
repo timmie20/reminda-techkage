@@ -1,7 +1,9 @@
 import React from "react";
 import { Button } from "./button";
 
-const Twilio = () => {
+const TelegramBot = () => {
+  const botKey = import.meta.env.VITE_TELEGRAM_BOT;
+
   const getUpdates = () => {
     const body = JSON.stringify({
       chat_id: 6734424917,
@@ -10,7 +12,7 @@ const Twilio = () => {
 
     fetch(
       //   "https://api.telegram.org/bot7437383243:AAEaHTr38NjBsIfR68222x9kt8O9MbxBmUQ/getUpdates",
-      "https://api.telegram.org/bot7437383243:AAEaHTr38NjBsIfR68222x9kt8O9MbxBmUQ/sendMessage",
+      `https://api.telegram.org/bot4${botKey}/sendMessage`,
       {
         method: "POST",
         headers: {
@@ -34,4 +36,4 @@ const Twilio = () => {
   );
 };
 
-export default Twilio;
+export default TelegramBot;
