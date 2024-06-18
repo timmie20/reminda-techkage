@@ -3,7 +3,7 @@ import { Input } from "./ui/input";
 
 function AgeCalculator({ name, value, handleChange, ...rest }) {
   return (
-    <div>
+    <div className="mt-3 space-y-2">
       <Label htmlFor="date-picker">Select your date of birth</Label>
       <Input
         id="date-picker"

@@ -6,18 +6,20 @@ import AgeCalculator from "./AgeCalculator";
 import GenderSelect from "./GenderSelect";
 import { getAgeValue } from "@/Helper/utils";
 import { KYCContext } from "@/context/KYC";
+import { Button } from "./ui/button";
 
 const AboutUserForm = () => {
   const { setCurrentStep, stepData } = useContext(AppContext);
   const { data, setData } = useContext(KYCContext);
+  const { firstname, lastname, age: Age, mobile, gender } = data.formData || {};
   const [age, setAge] = useState("");
 
   const [formData, setFormData] = useState({
-    firstname: data.firstname || "",
-    lastname: data.lastname || "",
-    age: data.age || "",
-    mobile: data.mobile || "",
-    gender: data.gender || "",
+    firstname: firstname || "",
+    lastname: lastname || "",
+    age: Age || "",
+    mobile: mobile || "",
+    gender: gender || "",
   });
 
   const getAgeValueMemoized = useMemo(() => {
@@ -61,71 +63,71 @@ const AboutUserForm = () => {
     const isFormValid = validateForm();
 
     if (isFormValid) {
-      setData(formData);
-      setCurrentStep(stepData[1]);
+      setData((allObj) => ({
+        ...allObj,
+        formData,
+      }));
+      setCurrentStep(stepData[2]);
     }
     // TODO: Else Handle invalid form submission FOR FEEDBACK
   };
 
   return (
     <>
-      <form className="flex w-full flex-col gap-10">
-        <div className="flex gap-4">
-          <div className="flex-1">
-            <Label htmlFor="firstname">Firstname</Label>
-            <Input
-              type="text"
-              id="firstname"
-              name="firstname"
-              value={formData["firstname"]}
-              onChange={handleOnChange}
-            />
-          </div>
-          <div className="flex-1">
-            <Label htmlFor="lastname">Lastname</Label>
-            <Input
-              type="text"
-              id="lastname"
-              name="lastname"
-              value={formData["lastname"]}
-              onChange={handleOnChange}
-            />
-          </div>
+      <form className="w-full">
+        <div className="space-y-2">
+          <Label htmlFor="firstname">Firstname</Label>
+          <Input
+            type="text"
+            id="firstname"
+            name="firstname"
+            value={formData["firstname"]}
+            onChange={handleOnChange}
+          />
         </div>
-        <div className="flex gap-4">
-          <AgeCalculator name="age" value={age} handleChange={handleOnChange} />
-
-          <div className="flex-1">
-            <Label htmlFor="mobile">Mobile Number</Label>
-            <Input
-              id="mobile"
-              name="mobile"
-              type="number"
-              value={formData["mobile"]}
-              onChange={handleOnChange}
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="gender">Gender</Label>
-            <GenderSelect
-              id="gender"
-              name="gender"
-              selectValue={formData["gender"]}
-              handleOnChange={(value) =>
-                setFormData({ ...formData, gender: value })
-              }
-            />
-          </div>
+        <div className="mt-3 space-y-2">
+          <Label htmlFor="lastname">Lastname</Label>
+          <Input
+            type="text"
+            id="lastname"
+            name="lastname"
+            value={formData["lastname"]}
+            onChange={handleOnChange}
+          />
         </div>
-        <button
-          className="primary_btn"
+
+        <AgeCalculator name="age" value={age} handleChange={handleOnChange} />
+
+        <div className="mt-3 space-y-2">
+          <Label htmlFor="mobile">Mobile Number</Label>
+          <Input
+            id="mobile"
+            name="mobile"
+            type="number"
+            value={formData["mobile"]}
+            onChange={handleOnChange}
+          />
+        </div>
+
+        <div className="mt-3 space-y-2">
+          <Label htmlFor="gender">Gender</Label>
+          <GenderSelect
+            id="gender"
+            name="gender"
+            selectValue={formData["gender"]}
+            handleOnChange={(value) =>
+              setFormData({ ...formData, gender: value })
+            }
+          />
+        </div>
+        <Button
+          className="primary_btn mt-8"
           type="button"
           onClick={handleNextAction}
           disabled={isButtonDisabled}
         >
           continue
-        </button>
+        </Button>
       </form>
     </>
   );

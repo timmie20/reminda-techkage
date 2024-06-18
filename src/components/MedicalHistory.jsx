@@ -4,25 +4,28 @@ import { Label } from "./ui/label";
 import SelectOption from "./SelectOption";
 import { KYCContext } from "@/context/KYC";
 import { Input } from "./ui/input";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "@/config/firebase";
 import { AuthContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import Loader from "./ui/Loader";
 
 const MedicalHistory = () => {
   const navigate = useNavigate();
   const { setCurrentStep, stepData } = useContext(AppContext);
   const { data, setData } = useContext(KYCContext);
-  const { user } = useContext(AuthContext);
+  const { addUserToFs } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     aliment: data.aliment || "",
     alimentType: data.alimentType || "",
     currentlyHospitalized: data.currentlyHospitalized || "",
     previouslyHospitalized: data.previouslyHospitalized || "",
   });
+  const [loading, setLoading] = useState(false);
+
   const handleOnChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
   };
+
   const validateForm = useCallback(() => {
     const {
       aliment,
@@ -62,26 +65,41 @@ const MedicalHistory = () => {
         ...formData,
       }));
     }
-console.log('====================================');
-console.log(data);
-console.log('====================================');
-    const valRef = collection(db, "users");
+    let req;
+    if (data) {
+      const { firstname, lastname, age, mobile, gender } = data.formData || {};
 
-    const req = {
-      ...(user.uid && { userId: user.uid }),
-      ...(data && data),
-      ...(formData && formData),
-    };
+      req = {
+        firstName: firstname,
+        lastName: lastname,
+        age: age,
+        mobile: mobile,
+        gender: gender,
+        ...(formData && formData),
+      };
+    }
 
-    // save fields to Firestore Database
-    await addDoc(valRef, { req });
-    // TODD: IS FEEDBACK NEEDED HERE BEFORE RE-DIRECTING TO DASHBOARD?
-    navigate("/dashboard");
+    setLoading(true);
+
+    try {
+      await addUserToFs(req);
+      navigate("/dashboard");
+      toast("Profile created", {
+        description: "View profile in dashboard",
+      });
+    } catch (error) {
+      toast("Failed", {
+        description: "Unable to create profile, try again later",
+      });
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <>
-      <form className="w-full space-y-4">
-        <div>
+      <form className="w-full">
+        <div className="space-y-2">
           <Label htmlFor="has-ailment">Any current Disorder or Ailment?</Label>
           <SelectOption
             id="has-ailment"
@@ -92,7 +110,7 @@ console.log('====================================');
         </div>
 
         {formData["aliment"] === "yes" && (
-          <div>
+          <div className="mt-3 space-y-2">
             <Label htmlFor="ailment-nature">If yes , State it</Label>
             <Input
               id="ailment-nature"
@@ -106,7 +124,7 @@ console.log('====================================');
           </div>
         )}
 
-        <div className="w-full">
+        <div className="mt-3 space-y-2">
           <Label htmlFor="is-hospitalized">
             Are you currently hospitalized?
           </Label>
@@ -119,7 +137,7 @@ console.log('====================================');
             }
           />
         </div>
-        <div className="w-full">
+        <div className="mt-3 space-y-2">
           <Label htmlFor="been-hospitalized">
             Have you been previously hospitalized?
           </Label>
@@ -133,11 +151,11 @@ console.log('====================================');
           />
         </div>
 
-        <div className="flex w-full gap-3">
+        <div className="mt-7 flex w-full gap-3">
           <button
             className="primary_btn"
             type="button"
-            onClick={() => setCurrentStep(stepData[0])}
+            onClick={() => setCurrentStep(stepData[1])}
           >
             go back
           </button>
@@ -147,7 +165,7 @@ console.log('====================================');
             onClick={handleSubmit}
             disabled={isButtonDisabled}
           >
-            Submit
+            {loading ? <Loader size="24" color="white" stroke="2" /> : "Submit"}
           </button>
         </div>
       </form>

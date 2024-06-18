@@ -1,0 +1,39 @@
+import React from "react";
+import { Button } from "./button";
+
+const TelegramBot = () => {
+  const botKey = import.meta.env.VITE_TELEGRAM_BOT;
+
+  const getUpdates = () => {
+    const body = JSON.stringify({
+      chat_id: 6734424917,
+      text: "hello boyy",
+    });
+
+    fetch(
+      //   "https://api.telegram.org/bot7437383243:AAEaHTr38NjBsIfR68222x9kt8O9MbxBmUQ/getUpdates",
+      `https://api.telegram.org/bot4${botKey}/sendMessage`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body,
+      },
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.result);
+      })
+      .catch((error) => {
+        console.error("Error fetching updates:", error);
+      });
+  };
+  return (
+    <div>
+      <Button onClick={getUpdates}>Send</Button>
+    </div>
+  );
+};
+
+export default TelegramBot;

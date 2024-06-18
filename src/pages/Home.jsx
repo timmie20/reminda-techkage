@@ -2,19 +2,30 @@ import React from "react";
 import docsSvg from "../assets/doc.svg";
 import docsImage from "../assets/image.jpg";
 import { Link } from "react-router-dom";
+import { FaRobot } from "react-icons/fa6";
 
 const Home = () => {
   return (
     <>
-      <main className="mx-auto max-w-[1024px] px-3">
-        <div className="mt-3 flex flex-col items-center gap-5 border-b-[1px] border-green_light py-5 md:mt-9">
-          <h1 className="text-center font-Poppins text-[32px] font-medium leading-snug md:text-left md:text-[65px]">
+      <main className="mx-auto max-w-[1024px] px-3 font-Poppins">
+        <div className="mt-3 flex flex-col gap-5 py-5 md:mt-9">
+          <p className="inline-flex items-center gap-2 text-center text-sm font-semibold leading-none text-green_light md:text-base">
+            POWERED BY AI
+            <FaRobot size={22} />
+          </p>
+          <h1 className="text-center text-[32px] font-medium leading-snug md:text-left md:text-[65px]">
             Let us help you
             <span className="font-bold text-green_light"> remember</span> and
             stay consistent on your meds
           </h1>
           <img src={docsSvg} />
         </div>
+
+        <h3 className="text-center text-[24px] font-semibold md:text-[32px]">
+          Our Ai-powered system gives you an overview of your current condition
+          when you create a dosage reminder
+        </h3>
+
         <div className="my-10 flex flex-col items-center justify-between gap-6 lg:flex-row lg:gap-0">
           <div className="w-full lg:w-[45%]">
             <img
