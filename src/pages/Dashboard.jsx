@@ -5,6 +5,14 @@ import { GrNext } from "react-icons/gr";
 import { IoCreateOutline } from "react-icons/io5";
 import { IoTimeSharp } from "react-icons/io5";
 import { BarChart } from "@mui/x-charts/BarChart";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 
 

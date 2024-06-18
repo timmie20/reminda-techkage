@@ -27,12 +27,12 @@ const Sidenav = () => {
 
   const navItems = [
     { name: "Overview", icon: <GrOverview /> },
-    { name: "Profile", icon: <CiUser /> },
-    { name: "Medication", icon: <GiMedicines /> },
     { name: "Create", icon: <IoCreateOutline /> },
     { name: "Shop", icon: <AiOutlineShopping /> },
     { name: "Activity", icon: <LuActivity /> },
-    { name: "Settings", icon: <IoSettingsOutline /> },
+    { name: "Profile", icon: <CiUser /> },
+    // { name: "Medication", icon: <GiMedicines /> },
+    // { name: "Settings", icon: <IoSettingsOutline /> },
   ];
 
   const handleLogoutClick = () => {
