@@ -5,14 +5,9 @@ import { GrNext } from "react-icons/gr";
 import { IoCreateOutline } from "react-icons/io5";
 import { IoTimeSharp } from "react-icons/io5";
 import { BarChart } from "@mui/x-charts/BarChart";
-// import {
-//     Dialog,
-//     DialogContent,
-//     DialogDescription,
-//     DialogHeader,
-//     DialogTitle,
-//     DialogTrigger,
-//   } from "@/components/ui/dialog";
+
+
+
 
 const Dashboard = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -76,7 +71,6 @@ const Dashboard = () => {
           {medicList.map((item) => (
             <div
               key={item.id}
-              //   to={`/${item.name.toLowerCase()}`}
               className="flex items-center  justify-between  rounded-md bg-gray-800 p-3 py-6 shadow-md sm:p-3 lg:p-6 xl:p-6"
               activeClassName="bg-gray-700"
             >
