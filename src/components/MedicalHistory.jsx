@@ -8,6 +8,8 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { AuthContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import Loader from "./ui/Loader";
 
 const MedicalHistory = () => {
   const navigate = useNavigate();
@@ -20,9 +22,12 @@ const MedicalHistory = () => {
     currentlyHospitalized: data.currentlyHospitalized || "",
     previouslyHospitalized: data.previouslyHospitalized || "",
   });
+  const [loading, setLoading] = useState(false);
+
   const handleOnChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
   };
+
   const validateForm = useCallback(() => {
     const {
       aliment,
@@ -62,9 +67,10 @@ const MedicalHistory = () => {
         ...formData,
       }));
     }
-    console.log("====================================");
-    console.log(data);
-    console.log("====================================");
+    setData((prevObj) => ({
+      ...prevObj,
+      ...formData,
+    }));
     const valRef = collection(db, "users");
 
     const req = {
@@ -73,10 +79,22 @@ const MedicalHistory = () => {
       ...(formData && formData),
     };
 
-    // save fields to Firestore Database
-    await addDoc(valRef, { req });
-    // TODD: IS FEEDBACK NEEDED HERE BEFORE RE-DIRECTING TO DASHBOARD?
-    navigate("/dashboard");
+    setLoading(true);
+
+    try {
+      await addDoc(valRef, { req });
+      navigate("/dashboard");
+      toast("Profile created", {
+        description: "View profile in dashboard",
+      });
+    } catch (error) {
+      toast("Failed", {
+        description: "Unable to create profile, try again later",
+      });
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <>
@@ -147,7 +165,7 @@ const MedicalHistory = () => {
             onClick={handleSubmit}
             disabled={isButtonDisabled}
           >
-            Submit
+            {loading ? <Loader size="24" color="white" stroke="2" /> : "Submit"}
           </button>
         </div>
       </form>

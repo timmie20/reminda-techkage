@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { FaRegSmileWink, FaArrowRight } from "react-icons/fa";
+import { AiFillLike } from "react-icons/ai";
 import { Button } from "./ui/button";
 import { AppContext } from "@/context/AppContext";
 
@@ -8,13 +9,14 @@ const Getstarted = () => {
   return (
     <>
       <div>
-        <h1 className="font-medium md:text-[48px]">
-          hello
+        <h1 className="text-2xl font-medium leading-normal md:text-[36px]">
+          hello,
           <span>
             <FaRegSmileWink color="#84a98c" />
           </span>
           to continue with your account let's get to know you. The next few
-          steps would help us personalized your account, about a 1min max
+          steps would help us personalized your account, about 2 mins max{" "}
+          <AiFillLike />
         </h1>
         <Button
           className="mt-4 inline-flex items-center gap-2 bg-green_dark text-base"
