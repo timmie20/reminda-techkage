@@ -11,14 +11,15 @@ import { Button } from "./ui/button";
 const AboutUserForm = () => {
   const { setCurrentStep, stepData } = useContext(AppContext);
   const { data, setData } = useContext(KYCContext);
+  const { firstname, lastname, age: Age, mobile, gender } = data.formData || {};
   const [age, setAge] = useState("");
 
   const [formData, setFormData] = useState({
-    firstname: data.firstname || "",
-    lastname: data.lastname || "",
-    age: data.age || "",
-    mobile: data.mobile || "",
-    gender: data.gender || "",
+    firstname: firstname || "",
+    lastname: lastname || "",
+    age: Age || "",
+    mobile: mobile || "",
+    gender: gender || "",
   });
 
   const getAgeValueMemoized = useMemo(() => {
