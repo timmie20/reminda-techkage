@@ -10,9 +10,6 @@ import { IoCreateOutline } from "react-icons/io5";
 import { AiOutlineShopping } from "react-icons/ai";
 import { LuActivity } from "react-icons/lu";
 
-
-
-
 import {
   Dialog,
   DialogContent,
@@ -38,29 +35,29 @@ const Sidenav = () => {
   };
 
   return (
-    <div className="fixed flex h-full w-1/5 flex-col bg-gray-800 md:pt-8 pt-6 text-center text-white">
+    <div className="fixed hidden h-full w-1/5 flex-col bg-gray-800 pt-6 text-center text-white md:pt-8 lg:flex">
       <div className="flex items-center justify-center text-center">
-        <h3 className="md:mb-8 mb-4 p-2 md:pt-8 pt-4 font-Poppins text-xl font-bold text-gray-500 md:text-3xl">
+        <h3 className="mb-4 p-2 pt-4 font-Poppins text-xl font-bold text-gray-500 md:mb-8 md:pt-8 md:text-3xl">
           h<span className="text-green_light">REMIND</span>
         </h3>
       </div>
-      <nav className="flex flex-col ">
+      <nav className="flex flex-col">
         {navItems.map((item) => (
           <NavLink
             key={item.name}
             to={`/dashboard/${item.name.toLowerCase()}`}
-            className="md:ml-4 ml-[1/2] flex items-center rounded px-4 text-sm md:text-base py-2 hover:bg-gray-700"
+            className="ml-[1/2] flex items-center rounded px-4 py-2 text-sm hover:bg-gray-700 md:ml-4 md:text-base"
             activeClassName="bg-gray-700"
           >
-            <span className="md:mr-3 mr-2">{item.icon}</span>
+            <span className="mr-2 md:mr-3">{item.icon}</span>
             {item.name}
           </NavLink>
         ))}
         <button
           onClick={handleLogoutClick}
-          className="md:ml-4 ml-[1/2] flex  items-center rounded px-4 py-2 text-sm md:text-base text-left hover:bg-gray-700"
+          className="ml-[1/2] flex items-center rounded px-4 py-2 text-left text-sm hover:bg-gray-700 md:ml-4 md:text-base"
         >
-          <span className="md:mr-3 mr-2">
+          <span className="mr-2 md:mr-3">
             <FiLogOut />
           </span>
           Log out

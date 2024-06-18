@@ -1,6 +1,4 @@
-
-
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import { FaUser } from "react-icons/fa6";
 import { FiEdit2 } from "react-icons/fi";
 import { AuthContext } from "@/context/AuthContext";
@@ -12,7 +10,6 @@ const Profile = () => {
 
   return (
     <div className="lgl:p-[2rem] mdl:p-[2rem] sml:p-[2rem] flex min-h-[1200px] w-full flex-col gap-4 overflow-hidden p-[1rem] md:p-[2rem] lg:p-[2rem] xl:p-[2rem]">
-      
       <div className="flex items-center justify-between py-2">
         <h1 className="text-lg font-bold">Profile</h1>
         <div className="right-0 float-right ml-auto flex">
@@ -23,8 +20,8 @@ const Profile = () => {
       {userData ? (
         <div className="my-4 flex w-full flex-col gap-10 md:flex-row">
           <div className="color-white flex h-[17rem] flex-col bg-gray-800 p-4 text-lg font-bold md:w-[25%]">
-            <div className="relative mb-6  overflow-hidden rounded-lg">
-              <FaUser className="md:w-40 w-60 h-full" />
+            <div className="relative mb-6 overflow-hidden rounded-lg">
+              <FaUser className="h-full w-60 md:w-40" />
             </div>
             {`Hello ${userData.firstname}` || "Hi John Doe"}
           </div>
@@ -76,15 +73,12 @@ const Profile = () => {
           </div>
         </div>
       ) : (
-          <div className="flex justify-center items-center">
-            <p>User not found</p>
-          </div>
-        )}
-      </div>
-    );
-  };
-  
-  export default Profile;
-  
-  
- 
+        <div className="flex items-center justify-center">
+          <p>User not found</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Profile;

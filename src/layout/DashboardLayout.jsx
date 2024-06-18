@@ -1,20 +1,20 @@
-import Navbar from "@/components/Dashboard/Navbar";
+import DashboardMobileNav from "@/components/Dashboard/DashboardMobileNav";
 import Sidenav from "@/components/Dashboard/Sidenav";
 import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
-    <div className=" sm:flex  h-screen w-full">
-      <div className="sm:flex sm:w-[20%] hidden">
-        <Sidenav />
+    <>
+      <div className="flex h-screen">
+        <div className="w-[20%]">
+          <Sidenav />
+        </div>
+        <div className="w-[80%] overflow-y-auto bg-gray-900 p-4 text-white">
+          <Outlet />
+        </div>
       </div>
-      <div className="flex sm:w-[80%] w-[100%] bg-gray-900 text-white p-4 overflow-y-auto">
-        <Outlet />
-      </div>
-      <div className="flex sm:hidden bottom-0 ">
-        <Navbar />
-      </div>
-    </div>
+      <DashboardMobileNav />
+    </>
   );
 };
 
