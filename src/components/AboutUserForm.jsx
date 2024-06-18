@@ -62,7 +62,10 @@ const AboutUserForm = () => {
     const isFormValid = validateForm();
 
     if (isFormValid) {
-      setData(formData);
+      setData((allObj) => ({
+        ...allObj,
+        formData,
+      }));
       setCurrentStep(stepData[2]);
     }
     // TODO: Else Handle invalid form submission FOR FEEDBACK

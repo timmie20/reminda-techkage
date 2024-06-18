@@ -4,7 +4,7 @@ import { Label } from "./ui/label";
 import SelectOption from "./SelectOption";
 import { KYCContext } from "@/context/KYC";
 import { Input } from "./ui/input";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { AuthContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ const MedicalHistory = () => {
   const navigate = useNavigate();
   const { setCurrentStep, stepData } = useContext(AppContext);
   const { data, setData } = useContext(KYCContext);
-  const { user } = useContext(AuthContext);
+  const { addUserToFs } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     aliment: data.aliment || "",
     alimentType: data.alimentType || "",
@@ -67,23 +67,21 @@ const MedicalHistory = () => {
         ...formData,
       }));
     }
-    setData((prevObj) => ({
-      ...prevObj,
-      ...formData,
-    }));
-    const valRef = collection(db, "users");
 
-    const req = {
-      ...(user.uid && { userId: user.uid }),
-      ...(data && data),
-      ...(formData && formData),
-    };
+    // const valRef = collection(db, "users");
+
+    // const req = {
+    //   ...(user.uid && { userId: user.uid }),
+    //   ...(data && data),
+    //   ...(formData && formData),
+    // };
 
     setLoading(true);
 
     try {
-      await addDoc(valRef, { req });
-      navigate("/dashboard");
+      console.log(data);
+      // await addUserToFs(data);
+      // navigate("/dashboard");
       toast("Profile created", {
         description: "View profile in dashboard",
       });

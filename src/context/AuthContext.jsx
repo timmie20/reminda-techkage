@@ -1,5 +1,5 @@
 import { auth, db } from "@/config/firebase";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   onAuthStateChanged,
   signInWithPopup,
@@ -8,11 +8,15 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { KYCContext } from "./KYC";
 
 export const AuthContext = createContext(null);
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { data, setData } = useContext(KYCContext);
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -31,22 +35,25 @@ export const AuthContextProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const addUserToFs = async (password) => {
+  const addUserToFs = async () => {
     const docRef = doc(db, "users", user?.uid);
 
-    const userObj = {
-      uid: user.uid,
-      userName: user.displayName,
-      userEmail: user.email,
-      imgURL: user.photoURL,
+    const userAuthData = {
+      email: user?.email,
       password: password,
+      imgUrl: user?.photoURL,
     };
 
-    try {
-      await setDoc(docRef, userObj);
-    } catch (error) {
-      console.log(error.message);
-    }
+    setData((allObj) => ({
+      ...allObj,
+      userAuthData,
+    }));
+    console.log(data);
+    // try {
+    //   await setDoc(docRef, data);
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
   };
 
   useEffect(() => {
@@ -60,7 +67,17 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signInWithGoogle, signIn, createUser, addUserToFs, user }}
+      value={{
+        signInWithGoogle,
+        signIn,
+        createUser,
+        addUserToFs,
+        user,
+        email,
+        setEmail,
+        password,
+        setPassword,
+      }}
     >
       {children}
     </AuthContext.Provider>

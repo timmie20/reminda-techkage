@@ -6,10 +6,16 @@ import { FcGoogle } from "react-icons/fc";
 
 const Signup = () => {
   const [formType, setFormType] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { signInWithGoogle, signIn, createUser, addUserToFs } =
-    useContext(AuthContext);
+
+  const {
+    signInWithGoogle,
+    signIn,
+    createUser,
+    email,
+    setEmail,
+    password,
+    setPassword,
+  } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -17,7 +23,6 @@ const Signup = () => {
     try {
       if (formType) {
         await createUser(email, password);
-        await addUserToFs(password);
       } else {
         await signIn(email, password);
       }
