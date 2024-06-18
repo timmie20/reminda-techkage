@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import DashboardLayout from "./layout/DashboardLayout";
 import Profile from "./components/Dashboard/Profile";
+import Twilio from "./components/ui/Twilio";
 
 const App = () => {
   return (
