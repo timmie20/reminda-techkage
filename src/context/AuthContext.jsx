@@ -44,7 +44,7 @@ export const AuthContextProvider = ({ children }) => {
       imgUrl: user?.photoURL,
       ...req,
     };
-    console.log(userAuthData);
+
     setData((allObj) => ({
       ...allObj,
       userAuthData,
