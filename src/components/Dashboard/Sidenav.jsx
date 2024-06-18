@@ -31,8 +31,6 @@ const Sidenav = () => {
     { name: "Shop", icon: <AiOutlineShopping /> },
     { name: "Activity", icon: <LuActivity /> },
     { name: "Profile", icon: <CiUser /> },
-    // { name: "Medication", icon: <GiMedicines /> },
-    // { name: "Settings", icon: <IoSettingsOutline /> },
   ];
 
   const handleLogoutClick = () => {
