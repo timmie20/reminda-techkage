@@ -1,33 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { GrNext } from "react-icons/gr";
 import { IoCreateOutline } from "react-icons/io5";
 import { IoTimeSharp } from "react-icons/io5";
 import { BarChart } from "@mui/x-charts/BarChart";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
-import DosageTimeInterval from "../components/DosageTimeInterval";
-import DosagePeriodInterval from "../components/DosagePeriodInterval";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import DosageRegistration from "@/components/DosageRegistration";
 
 const Dashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    medication: "",
-    dateMedicationStarted: "",
-    dosageInterval: "",
-    dosageTime: "",
-  });
-  const [confirmed, setConfirmed] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const medicList = [
     {
@@ -52,19 +34,6 @@ const Dashboard = () => {
       icon: <GrNext />,
     },
   ];
-
-  const handleOnChange = (value, field) => {
-    setFormData({
-      ...formData,
-      [field]: value,
-    });
-  };
-
-  const handlePopUp = () => {
-    setConfirmed(true);
-  };
-
-
 
   return (
     <div className="lgl:p-[2rem] mdl:p-[2rem] sml:p-[2rem] flex w-full flex-col gap-y-4 overflow-hidden p-[0.2rem] md:min-h-[1000px] md:p-[2rem] lg:p-[2rem] xl:p-[2rem]">
@@ -98,93 +67,7 @@ const Dashboard = () => {
               </button>
             </DialogTrigger>
             <DialogContent>
-              <DialogHeader>
-                <DialogTitle>
-                  <h1 className="text-2xl font-bold text-green_light mb-">
-                    Create a dosage reminder template
-                  </h1>
-                </DialogTitle>
-                <DialogDescription>
-                  <form className="flex w-full flex-col gap-10">
-                    <div className="flex gap-4">
-                      <div className="flex-1">
-                        <Label htmlFor="name-of-med text-xs">
-                          What medication are you currently on?
-                        </Label>
-                        <Input
-                          id="name-of-med"
-                          name="medication"
-                          value={formData["medication"]}
-                          onChange={(event) =>
-                            handleOnChange(event.target.value, "medication")
-                          }
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <Label htmlFor="date-started">Date started</Label>
-                        <Input
-                          type="date"
-                          id="date-started"
-                          name="dateMedicationStarted"
-                          value={formData["dateMedicationStarted"]}
-                          onChange={(event) =>
-                            handleOnChange(
-                              event.target.value,
-                              "dateMedicationStarted",
-                            )
-                          }
-                          max={new Date().toISOString().split("T")[0]}
-                        />
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
-                      <div className="flex-1">
-                        <Label htmlFor="period-interval">
-                          Dosage period Interval
-                        </Label>
-                        <DosagePeriodInterval
-                          id="period-interval"
-                          name="dosageInterval"
-                          selectValue={formData["dosageInterval"]}
-                          handleOnChange={(val) =>
-                            handleOnChange(val, "dosageInterval")
-                          }
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <Label htmlFor="time-interval">
-                          Set dosage time interval (for every)
-                        </Label>
-                        <DosageTimeInterval
-                          id="time-interval"
-                          name="dosageTime"
-                          selectValue={formData["dosageTime"]}
-                          handleOnChange={(val) =>
-                            handleOnChange(val, "dosageTime")
-                          }
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full">
-                      <button
-                        type="button"
-                        onClick={handlePopUp}
-                        className="primary_btn"
-                        disabled={isButtonDisabled}
-                      >
-                        Submit
-                      </button>
-                    </div>
-                    {confirmed && (
-                      <ConfirmationModal
-                        confirmed={confirmed}
-                        setConfirmed={setConfirmed}
-                        handleSubmit={handleSubmit}
-                      />
-                    )}
-                  </form>
-                </DialogDescription>
-              </DialogHeader>
+              <DosageRegistration callBackFun={() => setIsDialogOpen(false)} />
             </DialogContent>
           </Dialog>
         </div>
@@ -194,7 +77,7 @@ const Dashboard = () => {
             <div
               key={item.id}
               className="flex items-center justify-between rounded-md bg-gray-800 p-3 py-6 shadow-md sm:p-3 lg:p-6 xl:p-6"
-              activeClassName="bg-gray-700"
+              // activeClassName="bg-gray-700"
             >
               <div className="gap-y-4">
                 <div className="lgl:text-2xl mdl:text-2xl sml:text-xl text-purple text-base font-bold sm:text-base md:text-2xl lg:text-2xl xl:text-2xl">

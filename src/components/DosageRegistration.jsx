@@ -4,12 +4,12 @@ import { Label } from "./ui/label";
 import DosageTimeInterval from "./DosageTimeInterval";
 import DosagePeriodInterval from "./DosagePeriodInterval";
 import ConfirmationModal from "./ConfirmationModal";
-
 import { AuthContext } from "@/context/AuthContext";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
+import { toast } from "sonner";
 
-const DosageRegistration = () => {
+const DosageRegistration = ({ callBackFun }) => {
   const { user } = useContext(AuthContext);
   const [confirmed, setConfirmed] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,6 +18,7 @@ const DosageRegistration = () => {
     dosageInterval: "",
     dosageTime: "",
   });
+  const [loading, setLoading] = useState(false);
   const handleOnChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
   };
@@ -49,77 +50,86 @@ const DosageRegistration = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setConfirmed(false);
 
-    const valRef = collection(db, "dosage");
+    const valRef = doc(db, "dosage", user?.uid);
 
     const req = {
       ...(user.uid && { userId: user.uid }),
       ...(formData && { ...formData }),
     };
-
+    setLoading(true);
     // save fields to Firestore Database
-    await addDoc(valRef, { req });
-
-    window.alert("Congratulations, ");
+    try {
+      await setDoc(valRef, { req });
+      setLoading(false);
+      setConfirmed(false);
+      callBackFun(); // this is a props to close the modal after submission
+      toast("Dosage reminder", {
+        description: "You've set reminder for your medication",
+      });
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      toast("Oops", {
+        description: "Please, try again",
+      });
+    }
   };
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-green_light">
+      <h4 className="text-xl font-bold text-green_light">
         Create a dosage reminder template
-      </h1>
+      </h4>
       <form className="flex w-full flex-col gap-10">
-        <div className="flex gap-4">
-          <div className="flex-1">
-            <Label htmlFor="name-of-med">
-              What medication are you currently on ?
-            </Label>
-            <Input
-              id="name-of-med"
-              name="medication"
-              value={formData["medication"]}
-              onChange={(event) =>
-                handleOnChange(event.target.value, "medication")
-              }
-            />
-          </div>
-          <div className="flex-1">
-            <Label htmlFor="date-started">Date started</Label>
-            <Input
-              type="date"
-              id="date-started"
-              name="dateMedicationStarted"
-              value={formData["dateMedicationStarted"]}
-              onChange={(event) =>
-                handleOnChange(event.target.value, "dateMedicationStarted")
-              }
-              max={new Date().toISOString().split("T")[0]}
-            />
-          </div>
+        <div className="flex-1">
+          <Label htmlFor="name-of-med">
+            What medication are you currently on ?
+          </Label>
+          <Input
+            id="name-of-med"
+            name="medication"
+            value={formData["medication"]}
+            onChange={(event) =>
+              handleOnChange(event.target.value, "medication")
+            }
+          />
         </div>
-        <div className="flex gap-4">
-          <div className="flex-1">
-            <Label htmlFor="period-interval">Dosage period Interval</Label>
-            <DosagePeriodInterval
-              id="period-interval"
-              name="dosageInterval"
-              selectValue={formData["dosageInterval"]}
-              handleOnChange={(val) => handleOnChange(val, "dosageInterval")}
-            />
-          </div>
-          <div className="flex-1">
-            <Label htmlFor="time-interval">
-              Set dosage time interval (for every)
-            </Label>
-            <DosageTimeInterval
-              id="time-interval"
-              name="dosageTime"
-              selectValue={formData["dosageTime"]}
-              handleOnChange={(val) => handleOnChange(val, "dosageTime")}
-            />
-          </div>
+        <div className="flex-1">
+          <Label htmlFor="date-started">Date started</Label>
+          <Input
+            type="date"
+            id="date-started"
+            name="dateMedicationStarted"
+            value={formData["dateMedicationStarted"]}
+            onChange={(event) =>
+              handleOnChange(event.target.value, "dateMedicationStarted")
+            }
+            max={new Date().toISOString().split("T")[0]}
+          />
         </div>
+
+        <div className="flex-1">
+          <Label htmlFor="period-interval">Dosage period Interval</Label>
+          <DosagePeriodInterval
+            id="period-interval"
+            name="dosageInterval"
+            selectValue={formData["dosageInterval"]}
+            handleOnChange={(val) => handleOnChange(val, "dosageInterval")}
+          />
+        </div>
+        <div className="flex-1">
+          <Label htmlFor="time-interval">
+            Set dosage time interval (for every)
+          </Label>
+          <DosageTimeInterval
+            id="time-interval"
+            name="dosageTime"
+            selectValue={formData["dosageTime"]}
+            handleOnChange={(val) => handleOnChange(val, "dosageTime")}
+          />
+        </div>
+
         <div className="w-full">
           <button
             type="button"
@@ -135,6 +145,7 @@ const DosageRegistration = () => {
             confirmed={confirmed}
             setConfirmed={setConfirmed}
             handleSubmit={handleSubmit}
+            isDisabled={loading}
           />
         )}
       </form>
