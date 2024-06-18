@@ -4,8 +4,6 @@ import { Label } from "./ui/label";
 import SelectOption from "./SelectOption";
 import { KYCContext } from "@/context/KYC";
 import { Input } from "./ui/input";
-import { addDoc, collection, setDoc } from "firebase/firestore";
-import { db } from "@/config/firebase";
 import { AuthContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -67,21 +65,25 @@ const MedicalHistory = () => {
         ...formData,
       }));
     }
+    let req;
+    if (data) {
+      const { firstname, lastname, age, mobile, gender } = data.formData || {};
 
-    // const valRef = collection(db, "users");
-
-    // const req = {
-    //   ...(user.uid && { userId: user.uid }),
-    //   ...(data && data),
-    //   ...(formData && formData),
-    // };
+      req = {
+        firstName: firstname,
+        lastName: lastname,
+        age: age,
+        mobile: mobile,
+        gender: gender,
+        ...(formData && formData),
+      };
+    }
 
     setLoading(true);
 
     try {
-      console.log(data);
-      // await addUserToFs(data);
-      // navigate("/dashboard");
+      await addUserToFs(req);
+      navigate("/dashboard");
       toast("Profile created", {
         description: "View profile in dashboard",
       });

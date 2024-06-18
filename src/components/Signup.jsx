@@ -42,7 +42,7 @@ const Signup = () => {
             Sign Up or Sign In
           </h3>
           <p className="text-slate-500">
-            Let's get started with your 30 days free trial
+            Let&apos;s get started with your 30 days free trial
           </p>
 
           <div className="mt-7 flex flex-col gap-3">
@@ -53,7 +53,7 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <Input
-              type="text"
+              type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -90,7 +90,7 @@ const Signup = () => {
           </div>
 
           <small className="mt-3 text-wrap font-medium text-slate-500">
-            By signing up to create an account I accept company's{" "}
+            By signing up to create an account I accept company&apos;s{" "}
             <span className="text-blue-500">
               Terms of Use and Privacy Policy
             </span>
