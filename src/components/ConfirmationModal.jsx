@@ -1,7 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FiAlertCircle } from "react-icons/fi";
+import Loader from "./ui/Loader";
 
-const ConfirmationModal = ({ confirmed, setConfirmed,handleSubmit }) => {
+const ConfirmationModal = ({
+  confirmed,
+  setConfirmed,
+  handleSubmit,
+  isDisabled = false,
+}) => {
   return (
     <AnimatePresence>
       {confirmed && (
@@ -38,8 +44,13 @@ const ConfirmationModal = ({ confirmed, setConfirmed,handleSubmit }) => {
                 <button
                   onClick={handleSubmit}
                   className="w-full rounded bg-white py-2 font-semibold text-green_light transition-opacity hover:opacity-90"
+                  disabled={isDisabled}
                 >
-                  Understood!
+                  {isDisabled ? (
+                    <Loader size="24" color="green" stroke="2" />
+                  ) : (
+                    " Understood!"
+                  )}
                 </button>
               </div>
             </div>
