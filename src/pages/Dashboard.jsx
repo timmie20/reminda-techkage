@@ -1,39 +1,32 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GrNext } from "react-icons/gr";
 import { IoCreateOutline } from "react-icons/io5";
 import { IoTimeSharp } from "react-icons/io5";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import DosageRegistration from "@/components/DosageRegistration";
+import { AppContext } from "@/context/AppContext";
+import { AuthContext } from "@/context/AuthContext";
+import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { user } = useContext(AuthContext);
+  const { navigate } = useNavigate();
+  const {
+    currentStep,
+    setCurrentStep,
+    getDosageList,
+    dosageList,
+    currentPreview,
+    active,
+  } = useContext(AppContext);
 
-  const medicList = [
-    {
-      id: 1,
-      name: "Antibiotics",
-      intervals: "24hrs",
-      time: "6:34",
-      icon: <GrNext />,
-    },
-    {
-      id: 2,
-      name: "Analgesics",
-      intervals: "12hrs",
-      time: "6:34",
-      icon: <GrNext />,
-    },
-    {
-      id: 3,
-      name: "Immune Booster",
-      intervals: "6hrs",
-      time: "6:34",
-      icon: <GrNext />,
-    },
-  ];
+  useEffect(() => {
+    getDosageList();
+  }, [user, navigate]);
 
   return (
     <div className="lgl:p-[2rem] mdl:p-[2rem] sml:p-[2rem] flex w-full flex-col gap-y-4 overflow-hidden p-[0.2rem] md:min-h-[1000px] md:p-[2rem] lg:p-[2rem] xl:p-[2rem]">
@@ -73,23 +66,19 @@ const Dashboard = () => {
         </div>
 
         <div className="lgl:gap-4 mdl:gap-4 sml:gap-3 grid cursor-pointer grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 md:gap-2 lg:gap-4 xl:gap-4">
-          {medicList.map((item) => (
+          {dosageList?.map((dosage) => (
             <div
-              key={item.id}
+              key={dosage?.medication}
               className="flex items-center justify-between rounded-md bg-gray-800 p-3 py-6 shadow-md sm:p-3 lg:p-6 xl:p-6"
-              // activeClassName="bg-gray-700"
             >
               <div className="gap-y-4">
                 <div className="lgl:text-2xl mdl:text-2xl sml:text-xl text-purple text-base font-bold sm:text-base md:text-2xl lg:text-2xl xl:text-2xl">
-                  {item.intervals}
+                  <div>{`Every ${dosage.dosageTime} hrs`}</div>
                 </div>
-                <div className="text-sm text-gray-500">{item.name}</div>
-                <div>{item.time}</div>
+                <div className="text-sm text-gray-500">{dosage.medication}</div>
+                <div>{dosage.dosageInterval}</div>
               </div>
-
-              <div className="lgl:text-3xl mdl:text-2xl sml:text-xl text-xl text-gray-500 hover:text-gray-300 md:text-2xl lg:text-3xl xl:text-3xl">
-                {item.icon}
-              </div>
+              <Button>test</Button>
             </div>
           ))}
         </div>
