@@ -5,7 +5,7 @@ import DosageTimeInterval from "./DosageTimeInterval";
 import DosagePeriodInterval from "./DosagePeriodInterval";
 import ConfirmationModal from "./ConfirmationModal";
 import { AuthContext } from "@/context/AuthContext";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { toast } from "sonner";
 
@@ -14,6 +14,7 @@ const DosageRegistration = ({ callBackFun }) => {
   const [confirmed, setConfirmed] = useState(false);
   const [formData, setFormData] = useState({
     medication: "",
+    reason: "",
     dateMedicationStarted: "",
     dosageInterval: "",
     dosageTime: "",
@@ -23,10 +24,16 @@ const DosageRegistration = ({ callBackFun }) => {
     setFormData({ ...formData, [name]: value });
   };
   const validateForm = useCallback(() => {
-    const { medication, dateMedicationStarted, dosageInterval, dosageTime } =
-      formData;
+    const {
+      medication,
+      reason,
+      dateMedicationStarted,
+      dosageInterval,
+      dosageTime,
+    } = formData;
     return (
       medication !== "" &&
+      reason !== "" &&
       dateMedicationStarted !== "" &&
       dosageInterval !== "" &&
       dosageTime !== ""
@@ -51,7 +58,7 @@ const DosageRegistration = ({ callBackFun }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const valRef = doc(db, "dosage", user?.uid);
+    const valRef = collection(db, "dosage");
 
     const req = {
       ...(user.uid && { userId: user.uid }),
@@ -60,7 +67,7 @@ const DosageRegistration = ({ callBackFun }) => {
     setLoading(true);
     // save fields to Firestore Database
     try {
-      await setDoc(valRef, { req });
+      await addDoc(valRef, { req });
       setLoading(false);
       setConfirmed(false);
       callBackFun(); // this is a props to close the modal after submission
@@ -81,7 +88,7 @@ const DosageRegistration = ({ callBackFun }) => {
       <h4 className="text-xl font-bold text-green_light">
         Create a dosage reminder template
       </h4>
-      <form className="flex w-full flex-col gap-10">
+      <form className="flex w-full flex-col gap-4">
         <div className="flex-1">
           <Label htmlFor="name-of-med">
             What medication are you currently on ?
@@ -93,6 +100,17 @@ const DosageRegistration = ({ callBackFun }) => {
             onChange={(event) =>
               handleOnChange(event.target.value, "medication")
             }
+            placeholder="Paracetamol"
+          />
+        </div>
+        <div className="flex-1">
+          <Label htmlFor="reason-of-med">Reason for medication?</Label>
+          <Input
+            id="reason-of-med"
+            name="reason"
+            value={formData["reason"]}
+            onChange={(event) => handleOnChange(event.target.value, "reason")}
+            placeholder="e.g Headache, Food poisoning"
           />
         </div>
         <div className="flex-1">
