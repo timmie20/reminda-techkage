@@ -5,11 +5,8 @@ import { GrNext } from "react-icons/gr";
 import { IoCreateOutline } from "react-icons/io5";
 import { IoTimeSharp } from "react-icons/io5";
 import { BarChart } from "@mui/x-charts/BarChart";
-<<<<<<< HEAD
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import DosageRegistration from "@/components/DosageRegistration";
-=======
->>>>>>> 82277cf (Fixed nav for dashboard mobile)
 
 const Dashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -62,13 +59,8 @@ const Dashboard = () => {
       <div className="mt-2 flex flex-col gap-4 md:mt-6">
         <div className="flex items-center justify-between py-2 sm:py-5">
           <h1 className="text-sm md:text-base">Your medications</h1>
-<<<<<<< HEAD
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-=======
-          <Link to="/dashboard/medication">
-            <div className="flex flex-row justify-center">
->>>>>>> 82277cf (Fixed nav for dashboard mobile)
               <button className="300 flex transform flex-row rounded-xl bg-[#2c5836] px-2 py-3 text-xs transition ease-in hover:scale-90 md:px-3 md:py-4 md:text-base">
                 Add medication{" "}
                 <IoCreateOutline className="ml-[0.5px] mt-[0.5px] text-white md:ml-1 md:mt-1" />
@@ -85,11 +77,7 @@ const Dashboard = () => {
             <div
               key={item.id}
               className="flex items-center justify-between rounded-md bg-gray-800 p-3 py-6 shadow-md sm:p-3 lg:p-6 xl:p-6"
-<<<<<<< HEAD
               // activeClassName="bg-gray-700"
-=======
-              activeClassName="bg-gray-700"
->>>>>>> 82277cf (Fixed nav for dashboard mobile)
             >
               <div className="gap-y-4">
                 <div className="lgl:text-2xl mdl:text-2xl sml:text-xl text-purple text-base font-bold sm:text-base md:text-2xl lg:text-2xl xl:text-2xl">

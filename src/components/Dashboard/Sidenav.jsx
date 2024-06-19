@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { CiUser } from "react-icons/ci";
 import { GrOverview } from "react-icons/gr";
 import { FiLogOut } from "react-icons/fi";
-import { IoCreateOutline } from "react-icons/io5";
 import { AiOutlineShopping } from "react-icons/ai";
 import { LuActivity } from "react-icons/lu";
+import { useLocation } from "react-router-dom";
 
 import {
   Dialog,
@@ -19,12 +19,13 @@ import {
 const Sidenav = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const { pathname } = useLocation();
+
   const navItems = [
-    { name: "Overview", icon: <GrOverview /> },
-    { name: "Create", icon: <IoCreateOutline /> },
-    { name: "Shop", icon: <AiOutlineShopping /> },
-    { name: "Activity", icon: <LuActivity /> },
-    { name: "Profile", icon: <CiUser /> },
+    { name: "Home", to: "/dashboard", icon: <GrOverview /> },
+    { name: "Shop", to: "#", icon: <AiOutlineShopping /> },
+    { name: "Activity", to: "#", icon: <LuActivity /> },
+    { name: "Profile", to: "/dashboard/profile", icon: <CiUser /> },
   ];
 
   const handleLogoutClick = () => {
@@ -40,15 +41,14 @@ const Sidenav = () => {
       </div>
       <nav className="flex flex-col">
         {navItems.map((item) => (
-          <NavLink
+          <Link
             key={item.name}
-            to={`/dashboard/${item.name.toLowerCase()}`}
-            className="ml-[1/2] flex items-center rounded px-4 py-2 text-sm hover:bg-gray-700 md:ml-4 md:text-base"
-            activeClassName="bg-gray-700"
+            to={item.to}
+            className={`${pathname === item.to ? "bg-green_dark/90 text-white" : "text-gray-300"} ml-[1/2] flex items-center rounded px-4 py-2 text-sm hover:bg-green_dark md:ml-4 md:text-base`}
           >
             <span className="mr-2 md:mr-3">{item.icon}</span>
             {item.name}
-          </NavLink>
+          </Link>
         ))}
         <button
           onClick={handleLogoutClick}

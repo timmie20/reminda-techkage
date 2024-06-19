@@ -6,10 +6,10 @@ const DashboardLayout = () => {
   return (
     <>
       <div className="flex h-screen">
-        <div className="w-[20%]">
+        <div className="lg:w-[20%]">
           <Sidenav />
         </div>
-        <div className="w-[80%] overflow-y-auto bg-gray-900 p-4 text-white">
+        <div className="w-full overflow-y-auto bg-gray-900 p-4 text-white lg:w-[80%]">
           <Outlet />
         </div>
       </div>
