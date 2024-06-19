@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { CiUser } from "react-icons/ci";
-import { GrOverview } from "react-icons/gr";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineShopping } from "react-icons/ai";
 import { LuActivity } from "react-icons/lu";
 import { useLocation } from "react-router-dom";
+import { IoHomeOutline } from "react-icons/io5";
 
 import {
   Dialog,
@@ -22,7 +22,7 @@ const Sidenav = () => {
   const { pathname } = useLocation();
 
   const navItems = [
-    { name: "Home", to: "/dashboard", icon: <GrOverview /> },
+    { name: "Home", to: "/dashboard", icon: <IoHomeOutline /> },
     { name: "Shop", to: "#", icon: <AiOutlineShopping /> },
     { name: "Activity", to: "#", icon: <LuActivity /> },
     { name: "Profile", to: "/dashboard/profile", icon: <CiUser /> },
