@@ -10,9 +10,11 @@ import DosageRegistration from "@/components/DosageRegistration";
 import { AppContext } from "@/context/AppContext";
 import { AuthContext } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
+import Modal from "@/components/Modal";
 
 const Dashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const { user } = useContext(AuthContext);
   const { navigate } = useNavigate();
   const {
@@ -77,6 +79,10 @@ const Dashboard = () => {
                 </div>
                 <div className="text-sm text-gray-500">{dosage.medication}</div>
                 <div>{dosage.dosageInterval}</div>
+                <p className="text-xs" onClick={() => setOpen(!open)}>
+                  View more
+                </p>
+                {open && <p className="text-xs">{dosage.aiContent}</p>}
               </div>
               <Button>test</Button>
             </div>

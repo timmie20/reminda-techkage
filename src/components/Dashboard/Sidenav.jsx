@@ -36,8 +36,12 @@ const Sidenav = () => {
     <div className="fixed hidden h-full w-1/5 flex-col bg-gray-800 pt-6 text-center text-white md:pt-8 lg:flex">
       <div className="flex items-center justify-center text-center">
         <h3 className="mb-4 p-2 pt-4 font-Poppins text-xl font-bold text-gray-500 md:mb-8 md:pt-8 md:text-3xl">
-          h<span className="text-green_light">REMIND</span>
+          {/* h<span className="text-green_light">REMIND</span> */}
+          reminda
         </h3>
+        {/* <h3 className="font-Poppins text-xl font-bold text-gray-500 md:text-3xl">
+            reminda
+          </h3> */}
       </div>
       <nav className="flex flex-col">
         {navItems.map((item) => (
