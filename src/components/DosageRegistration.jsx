@@ -8,6 +8,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { toast } from "sonner";
+import { generate } from "@/Helper/RemindaAi";
 
 const DosageRegistration = ({ callBackFun }) => {
   const { user } = useContext(AuthContext);
@@ -19,7 +20,7 @@ const DosageRegistration = ({ callBackFun }) => {
     dosageInterval: "",
     dosageTime: "",
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(null);
   const handleOnChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
   };
@@ -55,20 +56,25 @@ const DosageRegistration = ({ callBackFun }) => {
 
     // TODO: Else Handle invalid form submission FOR FEEDBACK
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const reason = formData["reason"];
+
     const valRef = collection(db, "dosage");
 
-    const req = {
-      ...(user.uid && { userId: user.uid }),
-      ...(formData && { ...formData }),
-    };
-    setLoading(true);
+    setLoading("ai generating dosage analysis...");
     // save fields to Firestore Database
     try {
-      await addDoc(valRef, { req });
-      setLoading(false);
+      const content = await generate(reason);
+      setLoading("creating dosage...");
+      await addDoc(valRef, {
+        ...(user.uid && { userId: user.uid }),
+        ...(formData && { ...formData }),
+        aiContent: content,
+      });
+      setLoading(null);
       setConfirmed(false);
       callBackFun(); // this is a props to close the modal after submission
       toast("Dosage reminder", {
@@ -76,7 +82,7 @@ const DosageRegistration = ({ callBackFun }) => {
       });
     } catch (error) {
       console.log(error);
-      setLoading(false);
+      setLoading(null);
       toast("Oops", {
         description: "Please, try again",
       });
@@ -158,12 +164,14 @@ const DosageRegistration = ({ callBackFun }) => {
             Submit
           </button>
         </div>
+        {loading && <p>{loading}</p>}
         {confirmed && (
           <ConfirmationModal
             confirmed={confirmed}
             setConfirmed={setConfirmed}
             handleSubmit={handleSubmit}
             isDisabled={loading}
+            loading={loading}
           />
         )}
       </form>
